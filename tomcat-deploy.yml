@@ -16,6 +16,7 @@
     
     - name: copy war
       copy:
+        remote_user: k5user
         src=DEMO_File_WAR-10.9.war
         remote_src=yes
         dest=/opt/apache-tomcat-8.5.16/webapps/DEMO_File_WAR-10.9.war  mode=0744
