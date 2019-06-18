@@ -5,7 +5,7 @@
  #     ping:
     - name: download release json artifact from nexus
       maven_artifact:
-        version: 10.21
+        version: 10.22
         group_id: com.fujitsu.fs.poa.release
         artifact_id: poa-bal-json
         extension: json
