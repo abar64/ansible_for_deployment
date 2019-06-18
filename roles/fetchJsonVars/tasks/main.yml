@@ -1,0 +1,12 @@
+---
+# tasks file for loadJsonVars
+- name: download release json artifact from nexus
+  maven_artifact:
+    version: "{{ version }}"
+    group_id: com.fujitsu.fs.poa.release
+    artifact_id: poa-bal-json
+    extension: json
+    repository_url: 'http://62.60.42.82:8081/repository/maven-releases/'
+    username: 
+    password: 
+    dest: ./
