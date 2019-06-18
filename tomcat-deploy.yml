@@ -7,5 +7,5 @@
 #  become: true
   roles:
     - { role: fetchJsonVars }
-    - { role: loadJsonVars }
+#    - { role: loadJsonVars }
     - { role: deploy }
