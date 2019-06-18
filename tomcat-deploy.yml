@@ -5,7 +5,7 @@
  #     ping:
     - name: download release json artifact from nexus
       maven_artifact:
-        version: 10.22
+        version: "{{ version }}"
         group_id: com.fujitsu.fs.poa.release
         artifact_id: poa-bal-json
         extension: json
@@ -16,9 +16,9 @@
 
     - name: download maven aritfact from nexu
       maven_artifact:
-        version: 10.9
+        version: "{{ version }}"
         group_id: com.fujitsu.fs.demo
-        artifact_id: DEMO_File_WAR
+        artifact_id: DEMO_File_EAR
         extension: war
         repository_url: 'http://62.60.42.82:8081/repository/maven-releases/'
         username: 
@@ -27,9 +27,9 @@
     
     - name: copy war
       copy:
-        src: DEMO_File_WAR-10.9.war
+        src: DEMO_File_WAR-"{{ version }}.war
         remote_src: yes
-        dest: /opt/apache-tomcat-8.5.16/webapps/DEMO_File_WAR-10.9.war
+        dest: /opt/apache-tomcat-8.5.16/webapps/DEMO_File_WAR-"{{ version }}.war
         mode: 0744
 
     # - name: copy war
