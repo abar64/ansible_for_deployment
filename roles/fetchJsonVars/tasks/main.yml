@@ -12,4 +12,5 @@
     dest: ./
     
 - name: Import variables from json file
+  set_vars:
     jsonVar: "{{ lookup('file', 'release.json') | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
