@@ -1,9 +1,14 @@
 ---
+
+- set_fact:
+    artifact_name: DEMO_File_EAR
+
 - name: download maven artifact from nexus
   maven_artifact:
     version: "{{ version }}"
     group_id: com.fujitsu.fs.demo
-    artifact_id: DEMO_File_EAR
+#    artifact_id: DEMO_File_EAR
+    artifact_id: "{{artifact_name}}"
     extension: war
     repository_url: 'http://62.60.42.82:8081/repository/maven-releases/'
     username: 
@@ -12,7 +17,8 @@
 
 - name: copy war
   copy:
-    src: "DEMO_File_WAR-{{ version }}.war"
+    src: "{{artifact_name}}-{{ version }}.war"
     remote_src: yes
-    dest: "/opt/apache-tomcat-8.5.16/webapps/DEMO_File_WAR-{{ version }}.war"
+#    dest: "/opt/apache-tomcat-8.5.16/webapps/DEMO_File_WAR-{{ version }}.war"
+    dest: "/opt/apache-tomcat-8.5.16/webapps/{{artifact_name}}-{{ version }}.war"
     mode: 0744
