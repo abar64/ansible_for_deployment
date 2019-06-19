@@ -1,5 +1,5 @@
 ---
-- hosts: BAL
+- hosts: all
 #  remote_user: ansible
   vars_files: 
 #    - "group_vars/{{ env }}.yml"
