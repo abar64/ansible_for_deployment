@@ -24,7 +24,7 @@
 
 - name: Read release file
   set_vars:
-    jsonVar: "{{ lookup('file', "{{artifact_name}}"-"{{ version }}"."{{artifact_ext}}" | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
+    jsonVar: "{{ lookup('file', {{artifact_name}}-{{version}}.{{artifact_ext}}" | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
 
 - debug:
     msg: "{{jsonVar}}"
