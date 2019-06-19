@@ -1,0 +1,35 @@
+---
+# dev group vars
+
+OSR_APP_V2_VERSION: 19.18.0
+DEMO_File_EAR_VERSION: 19.18.0
+CTT_BRDB_PROXY_VERSION: 19.18.0
+GWS_FRAMEWORK_V2_VERSION: AUTO-SNAPSHOT
+GWS_AGENT_HPBB_V2_VERSION: AUTO-SNAPSHOT
+GWS_VERSION: AUTO-SNAPSHOT
+
+# directories to check for space.
+CHECK_SPACE_DIRS:  
+  - /var/log
+  - /opt
+
+# max of space required to install the things on target Server.
+REQUIRED_DIR_SPACE: 25
+
+# value to be supplied for KscConfig.KSS_ADDRESSES
+KSS_ADDRESSES: pkmn201:33030
+
+# value to substitute the serial number of the KSK
+KSS_CERT_SERIAL_NO_HEX: 
+
+
+
+# default bal services list.
+# add additional properties file here to start OSR on multiple ports
+bal_services_list:
+  - V1cit_server_20559.properties
+#  - rdt_server_20560.properties
+#  - rdt_server_20561.properties
+#  - rdt_server_20562.properties
+
+gws_agent_hpbb_endpoint_target: "test" #expecting test, emulator or prod 

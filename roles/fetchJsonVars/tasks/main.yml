@@ -1,11 +1,15 @@
 ---
 # tasks file for loadJsonVars
+- set_fact:
+    artifact_name: poa-bal-json
+    artifact_ext: json
+
 - name: download release json artifact from nexus
   maven_artifact:
     version: "{{ version }}"
     group_id: com.fujitsu.fs.poa.release
-    artifact_id: poa-bal-json
-    extension: json
+    artifact_id: "{{artifact_name}}"
+    extension: "{{artifact_ext}}"
     repository_url: 'http://62.60.42.82:8081/repository/maven-releases/'
     username: 
     password: 
@@ -18,5 +22,12 @@
 #- shell: '/usr/share/ansible/plugins/modules'
 #- shell: u'/usr/lib/python2.7/site-packages/ansible'
 
-#  set_vars:
-#    jsonVar: "{{ lookup('file', 'release.json') | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
+- name: Read release file
+  set_vars:
+    jsonVar: "{{ lookup('file', "{{artifact_name}}"-"{{ version }}"."{{artifact_ext}}" | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
+
+- debug:
+    msg: "{{jsonVar}}"
+
+- debug:
+    msg: "{{env}}"
