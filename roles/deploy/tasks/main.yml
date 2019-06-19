@@ -12,7 +12,7 @@
 
 - name: copy war
   copy:
-    src: "{{ DEMO_File_WAR-version.war }}"
+    src: "DEMO_File_WAR-{{ version }}.war"
     remote_src: yes
     dest: "/opt/apache-tomcat-8.5.16/webapps/DEMO_File_WAR-{{ version }}.war"
     mode: 0744
