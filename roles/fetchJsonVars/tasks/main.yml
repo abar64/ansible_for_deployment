@@ -12,5 +12,11 @@
     dest: ./
     
 - name: Import variables from json file
-  set_vars:
-    jsonVar: "{{ lookup('file', 'release.json') | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
+  shell: ls ./
+
+- shell: 'ls /home/jenkins/.ansible/plugins/modules' 
+- shell: '/usr/share/ansible/plugins/modules'
+- shell: u'/usr/lib/python2.7/site-packages/ansible'
+
+#  set_vars:
+#    jsonVar: "{{ lookup('file', 'release.json') | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
