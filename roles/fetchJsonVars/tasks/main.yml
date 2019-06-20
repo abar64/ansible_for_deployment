@@ -20,14 +20,16 @@
 
 - shell: pwd
 
+- shell: ls /var/lib/jenkins/workspace/martin_in_test_pipeline/ansibleWorkspace/
 
 - name: JSON file
   debug:
     msg: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
-    
+                cd /var/lib/jenkins/workspace/martin_in_test_pipeline/ansibleWorkspace/
+
 - name: Set jsonfile name separately as it cannot be defined and used in the same set_fact as the lookup
   set_fact:
-    jsonfile: "./{{artifact_name}}-{{version}}.{{artifact_ext}}"
+    jsonfile: "/var/lib/jenkins/workspace/martin_in_test_pipeline/ansibleWorkspace/{{artifact_name}}-{{version}}.{{artifact_ext}}"
 
 - shell: "{{cat jsonfile}}" 
 
