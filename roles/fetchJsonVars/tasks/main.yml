@@ -30,7 +30,7 @@
   set_fact:
     jsonfile: "/var/lib/jenkins/workspace/martin_in_test_pipeline/{{artifact_name}}-{{version}}.{{artifact_ext}}"
 
-- shell: "{{cat jsonfile}}" 
+#- shell: "{{cat jsonfile}}" 
 
 - name: Read release file
   set_fact:
