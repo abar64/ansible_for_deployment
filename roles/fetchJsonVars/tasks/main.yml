@@ -42,6 +42,7 @@
     - "chmod 777 {{ jsonfile }}"
   become_user: k5user
   become: true
+  warn: false
 
 - name: Read release file
   set_fact:
