@@ -36,9 +36,12 @@
     - ls -ltr ./
     - ls -ltr ../
     - pwd
-    - sudo ls -ltr /home/k5user
-    - sudo ls -ltr /home/jenkins
+    - ls -ltr /home/k5user
+    - ls -ltr /home/jenkins
     - "cat {{ jsonfile }}" 
+    - "chmod 777 {{ jsonfile }}"
+  become_user: k5user
+  become: true
 
 - name: Read release file
   set_fact:
