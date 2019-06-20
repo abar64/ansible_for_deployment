@@ -21,10 +21,14 @@
 - name: JSON file
   debug:
     msg: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
+    
+- name: Set jsonfile name separately as it cannot be defined and used in the same set_fact as the lookup
+  set_fact:
+    jsonfile: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
 
 - name: Read release file
   set_fact:
-    jsonfile: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
+    #jsonfile: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
     jsonVar: "{{ lookup('file', jsonfile | regex_replace('\\[') | regex_replace('\\]') | from_json)}}"
 
 
