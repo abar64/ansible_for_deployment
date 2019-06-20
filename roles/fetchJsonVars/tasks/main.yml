@@ -36,7 +36,11 @@
     - ls -ltr ./
     - ls -ltr ../
     - pwd
-    - ls -ltr /var/lib/jenkins/workspace/martin_in_test_pipeline/
+    - sudo ls -ltr /var
+    - sudo ls -ltr /var/lib/
+    - sudo ls -ltr /var/lib/jenkins/
+    - sudo ls -ltr /var/lib/jenkins/workspace/
+    - sudo ls -ltr /var/lib/jenkins/workspace/martin_in_test_pipeline/
     - "cat {{ jsonfile }}" 
 
 - name: Read release file
