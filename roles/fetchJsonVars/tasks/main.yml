@@ -28,7 +28,7 @@
 
 - name: Set jsonfile name separately as it cannot be defined and used in the same set_fact as the lookup
   set_fact:
-    jsonfile: "/var/lib/jenkins/workspace/martin_in_test_pipeline/{{artifact_name}}-{{version}}.{{artifact_ext}}"
+    jsonfile: "/home/k5user/{{artifact_name}}-{{version}}.{{artifact_ext}}"
 
 - name: test
   shell: "{{ item }}"
@@ -36,11 +36,8 @@
     - ls -ltr ./
     - ls -ltr ../
     - pwd
-    - sudo ls -ltr /var
-    - sudo ls -ltr /var/lib/
-    - sudo ls -ltr /var/lib/jenkins/
-    - sudo ls -ltr /var/lib/jenkins/workspace/
-    - sudo ls -ltr /var/lib/jenkins/workspace/martin_in_test_pipeline/
+    - sudo ls -ltr /home/k5user
+    - sudo ls -ltr /home/jenkins
     - "cat {{ jsonfile }}" 
 
 - name: Read release file
