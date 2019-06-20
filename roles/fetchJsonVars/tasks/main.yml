@@ -37,7 +37,6 @@
     - ls -ltr ../
     - pwd
     - ls -ltr /home/k5user
-    - ls -ltr /home/jenkins
     - "cat {{ jsonfile }}" 
 #    - "chmod 777 {{ jsonfile }}"
   become_user: k5user
