@@ -29,7 +29,7 @@
 - name: Read release file
   set_fact:
     #jsonfile: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
-    jsonVar: "{{ lookup('file', jsonfile | regex_replace('\\[') | regex_replace('\\]') | from_json)}}"
+    jsonVar: "{{ lookup('file', jsonfile) | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
 
 
 - debug:
