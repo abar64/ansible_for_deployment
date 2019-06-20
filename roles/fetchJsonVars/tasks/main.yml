@@ -29,7 +29,7 @@
   set_fact:
     jsonfile: "./{{artifact_name}}-{{version}}.{{artifact_ext}}"
 
-- shell: "{{cat jsonfile}}"" 
+- shell: "{{cat jsonfile}}" 
 
 - name: Read release file
   set_fact:
