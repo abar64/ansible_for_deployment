@@ -43,7 +43,8 @@
 - name: Read release file
   set_fact:
     jsonVar: "{{ lookup('file', jsonfile) | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
-
+  become_user: k5user
+  become: true
 
 - debug:
     msg: "{{env}}"
