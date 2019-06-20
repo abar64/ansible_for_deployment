@@ -22,12 +22,14 @@
 #- shell: '/usr/share/ansible/plugins/modules'
 #- shell: u'/usr/lib/python2.7/site-packages/ansible'
 
-- name: Read release file
-  set_vars:
-    jsonVar: "{{ lookup('file', {{artifact_name}}-{{version}}.{{artifact_ext}} | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
+- name: JSON file
+  debug:
+    msg: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
 
-- debug:
-    msg: "{{jsonVar}}"
+#- name: Read release file
+#  set_vars:
+#    jsonVar: "{{ lookup('file', {{artifact_name}}-{{version}}.{{artifact_ext}} | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
+
 
 - debug:
     msg: "{{env}}"
