@@ -18,6 +18,9 @@
 - name: Import variables from json file
   shell: ls ./
 
+- shell: pwd
+
+
 - name: JSON file
   debug:
     msg: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
@@ -26,9 +29,10 @@
   set_fact:
     jsonfile: "./{{artifact_name}}-{{version}}.{{artifact_ext}}"
 
+- shell: "{{cat jsonfile}}"" 
+
 - name: Read release file
   set_fact:
-    #jsonfile: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
     jsonVar: "{{ lookup('file', jsonfile) | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
 
 
