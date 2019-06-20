@@ -15,8 +15,8 @@
     password: 
     dest: ./
     
-- name: Import variables from json file
-  shell: ls ./
+#- name: Import variables from json file
+
 
 - shell: pwd
 
@@ -30,7 +30,14 @@
   set_fact:
     jsonfile: "/var/lib/jenkins/workspace/martin_in_test_pipeline/{{artifact_name}}-{{version}}.{{artifact_ext}}"
 
-#- shell: "{{cat jsonfile}}" 
+- name: test
+  shell: "{{ item }}"
+  with_items:
+    - ls -ltr ./
+    - ls -ltr ../
+    - pwd
+    - ls -ltr /var/lib/jenkins/workspace/martin_in_test_pipeline/
+    - "cat {{ jsonfile }}" 
 
 - name: Read release file
   set_fact:
