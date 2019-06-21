@@ -31,18 +31,18 @@
   set_fact:
     jsonfile: "/home/k5user/{{artifact_name}}-{{version}}.{{artifact_ext}}"
 
-- name: test
-  shell: "{{ item }}"
-  with_items:
-    - ls -ltr ./
-    - ls -ltr ../
-    - pwd
-    - ls -ltr /home/k5user
-    - "cat {{ jsonfile }}" 
-    - "cp {{ jsonfile }} /home/k5user/release.json" 
-#    - "chmod 777 {{ jsonfile }}"
-  become_user: k5user
-  become: true
+#- name: test
+#  shell: "{{ item }}"
+#  with_items:
+#    - ls -ltr ./
+#    - ls -ltr ../
+#    - pwd
+#    - ls -ltr /home/k5user
+#    - "cat {{ jsonfile }}" 
+#    - "cp {{ jsonfile }} /home/k5user/release.json" 
+##    - "chmod 777 {{ jsonfile }}"
+#  become_user: k5user
+#  become: true
 
 - name: display multiple file contents
   debug: var=item
@@ -52,12 +52,14 @@
   become_user: k5user
   become: true
 
+- name: get json file contents
+  command: "cat {{ jsonfile }}"
+  register: jsonFileContents
+
 - name: Read release file
   set_fact:
 #    jsonVar: "{{ lookup('file', jsonfile) | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
-    jsonVar: "{{ lookup('file', '/home/k5user/release.json') | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
-  become_user: k5user
-  become: true
+    jsonVar: "{{ jsonFileContents | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
 
 - debug:
-    msg: "{{env}}"
+    msg: "{{ jsonVar }}"
