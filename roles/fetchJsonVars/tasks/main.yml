@@ -47,7 +47,8 @@
 - name: display multiple file contents
   debug: var=item
   with_file:
-    - jsonfile
+    - '/home/k5user/release.json'
+    - "{{ jsonfile }}"
   become_user: k5user
   become: true
 
