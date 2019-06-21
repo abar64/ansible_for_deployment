@@ -59,7 +59,7 @@
 - name: Read release file
   set_fact:
 #    jsonVar: "{{ lookup('file', jsonfile) | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
-    jsonVar: "{{ jsonFileContents | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
+    jsonVar: "{{ jsonFileContents.stdout | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
 
 - debug:
     msg: "{{ jsonVar }}"
