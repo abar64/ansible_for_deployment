@@ -41,9 +41,9 @@
 #    msg: "Line {{ item }}"
 #    with_items: "{{ file_contents_lines }}"
 
-- name: Import variables from json file
-  set_fact:
-    jsonVar: "{{ lookup('file', jsonfile) | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
+#- name: Import variables from json file
+#  set_fact:
+#    jsonVar: "{{ lookup('file', jsonfile) | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
     #become: true
 
 #- name: Generate version strings from jsonVar
