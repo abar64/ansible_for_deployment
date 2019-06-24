@@ -1,10 +1,10 @@
 ---
-# tasks file for loadJsonVars
+# tasks file for fetchJsonVars
 - set_fact:
     artifact_name: poa-bal-json
     artifact_ext: json
 
-- name: download release json artifact from nexus
+- name: download release json artifact from nexus to remote machine
   maven_artifact:
     version: "{{ version }}"
     group_id: com.fujitsu.fs.poa.release
@@ -16,50 +16,58 @@
     dest: ./
     mode: 0644
     
-#- name: Import variables from json file
-
-
-- shell: pwd
-
-#- shell: ls /var/lib/jenkins/workspace/martin_in_test_pipeline/
-
-- name: JSON file
-  debug:
-    msg: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
-
 - name: Set jsonfile name separately as it cannot be defined and used in the same set_fact as the lookup
   set_fact:
-    jsonfile: "/home/k5user/{{artifact_name}}-{{version}}.{{artifact_ext}}"
+    jsonfile: "{{artifact_name}}-{{version}}.{{artifact_ext}}"
 
-#- name: test
-#  shell: "{{ item }}"
-#  with_items:
-#    - ls -ltr ./
-#    - ls -ltr ../
-#    - pwd
-#    - ls -ltr /home/k5user
-#    - "cat {{ jsonfile }}" 
-#    - "cp {{ jsonfile }} /home/k5user/release.json" 
-##    - "chmod 777 {{ jsonfile }}"
-#  become_user: k5user
-#  become: true
-
-#- name: display multiple file contents
-#  debug: var=item
-#  with_file:
-#    - '/home/k5user/release.json'
-#    - "{{ jsonfile }}"
-#  become_user: k5user
-#  become: true
-
-- name: get json file contents
+- name: get json file contents from remote machine
   command: "cat {{ jsonfile }}"
   register: jsonFileContents
 
 - name: Read release file
   set_fact:
-#    jsonVar: "{{ lookup('file', jsonfile) | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
     jsonVar: "{{ jsonFileContents.stdout | regex_replace('\\[') | regex_replace('\\]') | from_json}}"
 
-- debug:
+- name: Content of release file
+  debug:
     msg: "{{ jsonVar }}"
+
+#- name: Read in env vars
+#  set_fact:
+#    file_contents_lines: "{{ lookup('file', './group_vars/dev.yml').splitlines() }}"
+
+#- name:
+#  debug:
+#    msg: "Line {{ item }}"
+#    with_items: "{{ file_contents_lines }}"
+
+- name: Import variables from json file
+  set_fact:
+    jsonVar: "{{ lookup('file', jsonfile) | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
+    #become: true
+
+#- name: Generate version strings from jsonVar
+#  debug:
+#    msg: "{{ item }}_VERSION: {{jsonVar.artifacts[item].artifact_version}}"
+#  with_items: "{{ jsonVar.artifacts }}"
+
+- name: cat group_vars/dev.yml
+  command: "cat group_vars/dev.yml"
+  register: beforecontent
+- name: Content of release file
+  debug:
+    msg: "{{ beforecontent.stdout }}"
+
+- name: Replace version numbers in file
+  replace:
+    path: 'group_vars/dev.yml'
+    regexp: "{{ item }}_VERSION:.*"
+    replace: "{{ item }}_VERSION: {{jsonVar.artifacts[item].artifact_version}}"
+  with_items: "{{ jsonVar.artifacts }}"
+
+- name: cat group_vars/dev.yml
+  command: "cat group_vars/dev.yml"
+  register: aftercontent
+- name: Content of release file
+  debug:
+    msg: "{{ aftercontent.stdout }}"
