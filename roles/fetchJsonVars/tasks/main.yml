@@ -53,7 +53,8 @@
 
 - name: Replace version numbers in file
   replace:
-    path: 'group_vars/dev.yml'
+#    path: 'group_vars/dev.yml'
+    path: '/var/lib/jenkins/workspace/martin_in_test_pipeline/ansibleWorkspace/group_vars/dev.yml'
     regexp: "{{ item }}_VERSION:.*"
     replace: "{{ item }}_VERSION: {{jsonVar.artifacts[item].artifact_version}}"
   with_items: "{{ jsonVar.artifacts }}"
