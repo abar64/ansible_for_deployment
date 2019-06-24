@@ -51,23 +51,9 @@
 #    msg: "{{ item }}_VERSION: {{jsonVar.artifacts[item].artifact_version}}"
 #  with_items: "{{ jsonVar.artifacts }}"
 
-- name: cat group_vars/dev.yml
-  command: "cat group_vars/dev.yml"
-  register: beforecontent
-- name: Content of release file
-  debug:
-    msg: "{{ beforecontent.stdout }}"
-
 - name: Replace version numbers in file
   replace:
     path: 'group_vars/dev.yml'
     regexp: "{{ item }}_VERSION:.*"
     replace: "{{ item }}_VERSION: {{jsonVar.artifacts[item].artifact_version}}"
   with_items: "{{ jsonVar.artifacts }}"
-
-- name: cat group_vars/dev.yml
-  command: "cat group_vars/dev.yml"
-  register: aftercontent
-- name: Content of release file
-  debug:
-    msg: "{{ aftercontent.stdout }}"
