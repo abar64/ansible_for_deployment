@@ -32,30 +32,23 @@
   debug:
     msg: "{{ jsonVar }}"
 
-#- name: Read in env vars
-#  set_fact:
-#    file_contents_lines: "{{ lookup('file', './group_vars/dev.yml').splitlines() }}"
-
-#- name:
-#  debug:
-#    msg: "Line {{ item }}"
-#    with_items: "{{ file_contents_lines }}"
-
-#- name: Import variables from json file
-#  set_fact:
-#    jsonVar: "{{ lookup('file', jsonfile) | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
-    #become: true
-
-#- name: Generate version strings from jsonVar
-#  debug:
-#    msg: "{{ item }}_VERSION: {{jsonVar.artifacts[item].artifact_version}}"
-#  with_items: "{{ jsonVar.artifacts }}"
-
 - name: Replace version numbers in file
   local_action:
     module: replace
     path: 'group_vars/dev.yml'
-#    path: '/var/lib/jenkins/workspace/martin_in_test_pipeline/ansibleWorkspace/group_vars/dev.yml'
     regexp: "{{ item }}_VERSION:.*"
     replace: "{{ item }}_VERSION: {{jsonVar.artifacts[item].artifact_version}}"
   with_items: "{{ jsonVar.artifacts }}"
+
+- name: cat group_vars/dev.yml
+  local_action:
+    module: command cat group_vars/dev.yml
+  register: aftercontent
+
+- name: Content of release file
+  debug:
+    msg: "{{ aftercontent }}"
+
+- name: git diff
+  local_action:
+    module: command git diff
