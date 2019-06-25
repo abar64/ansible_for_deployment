@@ -2,10 +2,9 @@
 - hosts: all
 #  remote_user: ansible
   vars_files: 
-#    - "group_vars/{{ env }}.yml"
+    - "group_vars/{{ env }}.yml"
   gather_facts: True
 #  become: true
   roles:
     - { role: fetchJsonVars }
-#    - { role: loadJsonVars }
     - { role: deploy }

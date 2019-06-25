@@ -1,6 +1,0 @@
----
-- debug:
-    msg: "{{ jsonVar }}"
-
-- debug:
-    msg: "{{ jsonVar2 }}"

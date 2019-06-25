@@ -1,5 +1,0 @@
----
-- name: Import variables from json file
-#    jsonVar: "{{ lookup('file', 'release.json') | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
-    jsonVar: "{{ lookup('file', 'poa-bal-json-10.26.json') | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
-    jsonVar2: "{{ lookup('file', 'poa-bal-json-version.json') | regex_replace('\\[') | regex_replace('\\]') | from_json }}"
